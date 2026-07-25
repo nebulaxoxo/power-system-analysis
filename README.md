@@ -13,8 +13,7 @@ regression tests, not as the program's structure.
 
 ## Status
 
-🚧 Early development — core calculation modules are being built and tested
-before the GUI.
+✅ Chapter 4 (Examples 4.2–4.6) core pipeline and GUI complete and validated.
 
 ## Background
 
@@ -23,18 +22,30 @@ The original MATLAB code this project modernizes:
 - `acsr.m` — ACSR conductor lookup table
 - `AcsrGui.m` — GUIDE-based GUI for browsing ACSR conductors
 
-## Planned architecture
+## Architecture
 
 ```
 src/linetool/
 ├── geometry.py    # GMD calculations for single/double-circuit configs
 ├── bundling.py     # bundle conductor GMR calculations
 ├── electrical.py   # inductance / capacitance formulas
-└── acsr_data.py    # ACSR conductor lookup table + image
+├── acsr_data.py    # ACSR conductor lookup table + image
+└── main.py         # PyQt6 GUI
 ```
 
-A PyQt GUI sits on top of these once they're validated against the
-textbook's known example answers.
+## Setup
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running the GUI
+
+```bash
+# from repo root
+export PYTHONPATH=src   # PowerShell: $env:PYTHONPATH="src"
+python -m linetool.main
+```
 
 ## Reference formulas
 
@@ -44,15 +55,17 @@ textbook's known example answers.
 ## Running tests
 
 ```bash
-pytest tests/
+export PYTHONPATH=src   # PowerShell: $env:PYTHONPATH="src"
+pytest tests/ -v
 ```
 
 ## Roadmap
 
 - [x] Design: module split, GUI plan, platform choice
-- [ ] Geometry engine + tests
-- [ ] Bundling engine + tests
-- [ ] Electrical formulas + tests
-- [ ] ACSR data module
-- [ ] PyQt GUI
+- [x] Geometry engine + tests (single-circuit, double-vertical, double-horizontal)
+- [x] Bundling engine + tests
+- [x] Electrical formulas + tests
+- [x] ACSR data module + tests
+- [x] PyQt6 GUI (config selector, dynamic inputs, ACSR listbox + image, Calculate button, popup errors)
+- [x] `requirements.txt` pinning / packaging polish
 - [ ] Future chapters (beyond Ch. 4)
